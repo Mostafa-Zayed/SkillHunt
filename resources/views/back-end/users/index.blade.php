@@ -2,7 +2,8 @@
 @php 
 	$pageTitle = 'Control';
 	$model     = 'Users';
-
+    $fields  = array('id','email','control');
+    $center = "style=text-align:center;";
 @endphp
 @section('title',$model.' '.$pageTitle)
 @section('content')
@@ -29,18 +30,18 @@
             <div class="content table-responsive table-full-width">
                 <table class="table table-hover table-striped">
                     <thead>
-                    	<tr>
-                    		<td>ID</td>
-                    		<td>Email</td>
-                    		<td>Control</td>
-                    	</tr>
+                        <tr>
+                        @foreach($fields as $field)
+                    		<td {{$center}}>{{strtoupper($field)}}</td>
+                        @endforeach
+                        </tr>
                     </thead>
                     <tbody>
                     	@foreach($rows as $row)
                     	<tr>
-                    		<td>{{$row->id}}</td>
-                    		<td>{{$row->email}}</td>
-                    		<td>
+                    		<td {{$center}}>{{$row->id}}</td>
+                    		<td {{$center}}>{{$row->email}}</td>
+                    		<td {{$center}}>
                     			<a href="{{route('users.edit',['id'=>$row->id])}}" class='btn btn-warning'>Edit</a>
                                 <form action="{{route('users.destroy',['id'=>$row->id])}}" method="POST" style="display:inline;">
                                     {{method_field('delete')}}

@@ -13,7 +13,6 @@
         </div>
 		<div class="content">
 			<form action="{{route('users.update',['id' => $row->id])}}" method="POST">
-				{{csrf_field()}}
 				{{method_field('put')}}
 				@include('back-end.users.form',['id'=>$row->id])  
 				<input type="submit" class="btn btn-info btn-fill pull-right" value="{{$pageTitle}}">
