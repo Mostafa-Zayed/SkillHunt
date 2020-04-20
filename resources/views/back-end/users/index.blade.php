@@ -19,7 +19,7 @@
 </div>
 <div class='row'>
     <div class='col-md-12 text-right'>
-    	<button class='btn btn-primary'>Create New User</button>
+    	<a href="{{route('users.create')}}" class='btn btn-primary'>Create New User</a>
     </div>
 </div>
 <br>
