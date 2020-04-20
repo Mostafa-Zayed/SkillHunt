@@ -35,4 +35,29 @@ class Users extends BackEndController
     {
     	return view('back-end.users.create');
     }
+
+    public function edit($id)
+    {
+        $row = User::findOrFail($id);
+        return view('back-end.users.edit',compact('row'));
+    }
+
+    public function update($id,Request $request)
+    {
+        $row = User::findOrFail($id);
+        $data = $request->all();
+        
+        if(request()->has('password') && request()->get('password') !== ''){
+            $data['password'] = Hash::make(request('password'));
+        }
+
+        $row->update($data);
+        return redirect()->route('users.edit',['id'=>$row->id]);
+    }
+
+    public function destroy($id)
+    {
+         User::findOrFail($id)->delete();
+         return redirect()->route('users.index');
+    }
 }

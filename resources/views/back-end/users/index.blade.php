@@ -41,8 +41,13 @@
                     		<td>{{$row->id}}</td>
                     		<td>{{$row->email}}</td>
                     		<td>
-                    			<button class='btn btn-warning'>Edit</button>
-                    			<button class='btn btn-danger'>Delete</button>
+                    			<a href="{{route('users.edit',['id'=>$row->id])}}" class='btn btn-warning'>Edit</a>
+                                <form action="{{route('users.destroy',['id'=>$row->id])}}" method="POST" style="display:inline;">
+                                    {{method_field('delete')}}
+                                    @csrf
+                    			     <input type="submit"  class='btn btn-danger' value='Delete' >
+                                    
+                                </form>
                     		</td>
                     	</tr>
                     	@endforeach
