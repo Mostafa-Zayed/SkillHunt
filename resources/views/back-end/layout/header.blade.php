@@ -5,10 +5,10 @@
                 <a href="{{url('dashboard')}}">Dashboard</a>
             </li>
             <li class="breadcrumb-item">
-                <a href="{{url('dashboard/'.$model)}}">{{ucfirst($model)}}</a>
+                <a href="{{url('dashboard/'.$models)}}">{{ucfirst($models)}}</a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">
-                Show
+                {{$method}}
             </li>
         </ol>
     </nav>

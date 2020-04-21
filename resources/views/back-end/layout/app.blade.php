@@ -37,7 +37,7 @@
         <div class="content">
             <div class="container-fluid">
                 <div class='row'>
-                    @component('back-end.layout.header',['model' => $model])
+                    @component('back-end.layout.header',['model' => $model,'models'=>$models,'method'=>$method])
                     @endcomponent
                     
                 </div>

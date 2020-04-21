@@ -8,25 +8,36 @@ class BackEndController extends Controller {
 	
 	protected $model;
 	protected $modelName;
-	protected $modelNamePlural;
+    protected $modelNamePlural;
+	protected $lowerModelNamePlural;
 
 	public function __construct(Model $model)
 	{
 		$this->model = $model;
-		$this->modelName = $this->setModelName($model);
-		$this->modelNamePlural = $this->setModelNamePlural($this->modelName);
+		$this->modelName = $this->setModelName();
+        $this->modelNamePlural = $this->setModelNamePlural();
+        $this->lowerModelNamePlural = $this->setLowerModelNamePlural();
 	}
 
-	private function setModelName($model)
+	private function setModelName()
 	{
-		return strtolower(class_basename($model));
+		return class_basename($this->model);
 	}
 
-	private function setModelNamePlural()
+    private function setModelNamePlural()
+    {
+        return str_plural($this->modelName);
+    }
+
+    private function setLowerModelNamePlural()
+    {
+        return strtolower($this->modelNamePlural);
+    }
+
+	protected function filter($rows)
 	{
-		return str_plural($this->modelName);
+		return $rows;
 	}
-
 	/**
 	* determane The users Index Page
 	* 
@@ -34,25 +45,53 @@ class BackEndController extends Controller {
 	*/
     public function index()
     {
-    	$rows = $this->model::paginate(2);
-    	return view('back-end.'.$this->modelNamePlural.'.index',compact('rows'));
+        $pageTitle = 'Control '.$this->modelNamePlural;
+        $method    = __FUNCTION__;
+    	$rows      = $this->model;
+    	$rows      = $this->filter($rows);
+    	$rows      = $rows->paginate(2);
+    	
+    	return view('back-end.'.$this->lowerModelNamePlural.'.'.$method,[
+    		'pageTitle' =>$pageTitle,
+    		'model'=>$this->modelName,
+    		'models'=>$this->lowerModelNamePlural,
+            'method'  => ucfirst($method),
+            'rows'      => $rows
+    	]);
     }
 	
 	public function create()
     {
-    	return view('back-end.'.$this->modelNamePlural.'.create');
+        $method = __FUNCTION__;
+    	$pageTitle = ucwords($method.' '.$this->modelName);
+    	return view('back-end.'.$this->lowerModelNamePlural.'.'.$method,[
+    		'pageTitle'=>$pageTitle,
+    		'model'=>$this->modelName,
+    		'models'=>$this->lowerModelNamePlural,
+            'method'  => ucfirst($method)
+    	]);
+    	
     }
 
     public function edit($id)
     {
+        $method = __FUNCTION__;
+    	$pageTitle = ucwords($method.' '.$this->modelName);
         $row = $this->model::findOrFail($id);
-        return view('back-end.'.$this->modelNamePlural.'.edit',compact('row'));
+        return view('back-end.'.$this->lowerModelNamePlural.'.'.$method,[
+        	'row'=>$row,
+        	'pageTitle'=>$pageTitle,
+            'method'=>ucfirst($method),
+        	'model'=>$this->modelName,
+        	'models'=>$this->lowerModelNamePlural
+        ]);
+
     }
 
     public function destroy($id)
     {
          $this->model::findOrFail($id)->delete();
-         return redirect()->route(''.$this->modelNamePlural.'.index');
+         return redirect()->route(''.$this->lowerModelNamePlural.'.index');
     }
 	
 }

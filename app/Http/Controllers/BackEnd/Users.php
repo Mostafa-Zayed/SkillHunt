@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\BackEnd;
 
 use App\Models\User;
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
+use App\Http\Requests\BackEnd\Users\Store;
+use App\Http\Requests\BackEnd\Users\Update;
 use Illuminate\Support\Facades\Hash;
 class Users extends BackEndController
 {
@@ -16,28 +18,36 @@ class Users extends BackEndController
     }
 	
 
-    public function store(Request $request)
+    public function store(Store $request)
     {
-    	User::create([
-    		'email' => request('email'),
-    		'password' => Hash::make(request('password'))
-    	]);
 
-    	return redirect()->route('users.index');
+        $data = $request->all();
+        $data['password'] = Hash::make(request('password'));
+        $this->model::create($data);
+    	return redirect()->route(''.$this->lowerModelNamePlural.'.index');
     }
 
-    public function update($id,Request $request)
+    public function update($id,Update $request)
     {
-        $row = User::findOrFail($id);
+        $row = $this->model::findOrFail($id);
         $data = $request->all();
-        
-        if(request()->has('password') && request()->get('password') !== ''){
-            $data['password'] = Hash::make(request('password'));
+        if(isset($data['password']) && $data['password'] !== ''){
+            $data['password'] = Hash::make($data['password']);
+        }else{
+            unset($data['password']);
+        }
+        unset($data['password_confirmation']);
+        $row->update($data);
+        return redirect()->route(''.$this->lowerModelNamePlural.'.edit',['id'=>$row->id]);
+    }
+
+    protected function filter($rows)
+    {
+        if(request()->has('email')){
+            $rows = $rows->where('email',request()->get('email'));
         }
 
-        $row->update($data);
-        return redirect()->route('users.edit',['id'=>$row->id]);
+        return $rows;
     }
-
 
 }
