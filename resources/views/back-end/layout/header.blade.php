@@ -14,7 +14,7 @@
     </nav>
 </div>
 <div class='col-md-8'>
-    <form method="GET" action="{{url('dashboard/'.$model)}}">
+    <form method="GET" action="{{url('dashboard/'.$models)}}">
         <div class="input-group">
             <input type="text" class="form-control" placeholder="Search for..">
             <span class="input-group-btn">

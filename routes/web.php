@@ -21,13 +21,8 @@ Route::get('/', function () {
 Route::namespace('BackEnd')->prefix('dashboard')->group(function(){
 
 	Route::get('/','Home@index');
-	//Route::get('/users','Users@index');
-	//Route::get('users/create','Users@create');
-	//Route::post('users','Users@store');
-	//Route::get('users/{id}','Users@edit');
-	//Route::post('users/{id}','Users@update');
-	//Route::post('users/delete/{id}','Users@destroy');
 	Route::resource('users','Users')->except('show');
+	Route::resource('categories','Categories')->except('show');
 });
 Auth::routes();
 

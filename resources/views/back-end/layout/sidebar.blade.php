@@ -1,16 +1,9 @@
 <div class="sidebar" data-color="purple" data-image="{{asset('img/sidebar-5.jpg')}}">
 
-    <!--
-
-        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
-        Tip 2: you can also add an image using data-image tag
-
-    -->
-
     	<div class="sidebar-wrapper">
             <div class="logo">
-                <a href="http://www.creative-tim.com" class="simple-text">
-                    Creative Tim
+                <a href="{{url('/')}}" class="simple-text">
+                    SkillHunt
                 </a>
             </div>
 
@@ -19,6 +12,24 @@
                     <a href="dashboard.html">
                         <i class="pe-7s-graph"></i>
                         <p>Dashboard</p>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="{{url('dashboard/users')}}">
+                        <i class="pe-7s-graph"></i>
+                        <p>Users</p>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="{{url('dashboard/categories')}}">
+                        <i class="pe-7s-graph"></i>
+                        <p>Categories</p>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="{{url('dashboard/sliders')}}">
+                        <i class="pe-7s-graph"></i>
+                        <p>Sliders</p>
                     </a>
                 </li>
 

@@ -1,6 +1,6 @@
 @extends('back-end.layout.app')
 @php  
-    $fields  = array('id','email','control');
+    $fields  = array('id','name','control');
     $center = "style=text-align:center;";
     $increment = 0;
 @endphp
@@ -17,11 +17,8 @@
     </div>
 @endif
 </div>
-<div class='row'>
-    <div class='col-md-12 text-right'>
-    	<a href="{{route('users.create')}}" class='btn btn-primary'>Create {{$model}}</a>
-    </div>
-</div>
+@component('back-end.shared.buttons.create',['model'=>$model,'models'=>$models])
+@endcomponent
 <br>
 <div class='row'>
     <div class='col-md-12'>
