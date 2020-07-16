@@ -8,25 +8,25 @@
             </div>
 
             <ul class="nav">
-                <li class="active">
+                <li class="{{is_active('dashboard')}}">
                     <a href="dashboard.html">
                         <i class="pe-7s-graph"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="active">
+                <li class="{{is_active('users')}}">
                     <a href="{{url('dashboard/users')}}">
                         <i class="pe-7s-graph"></i>
                         <p>Users</p>
                     </a>
                 </li>
-                <li class="active">
+                <li class="{{is_active('categories')}}">
                     <a href="{{url('dashboard/categories')}}">
                         <i class="pe-7s-graph"></i>
                         <p>Categories</p>
                     </a>
                 </li>
-                <li class="active">
+                <li class="{{is_active('sliders')}}">
                     <a href="{{url('dashboard/sliders')}}">
                         <i class="pe-7s-graph"></i>
                         <p>Sliders</p>

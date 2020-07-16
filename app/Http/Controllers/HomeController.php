@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Job;
+use App\Models\Category;
 class HomeController extends Controller
 {
     /**
@@ -13,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
     }
 
     /**
@@ -23,6 +24,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('welcome');
+    }
+
+    public function category($id)
+    {
+        $category = Category::findOrFail($id);
+        //dd($category);
+        $jobs = Job::where('category_id',$id)->orderBy('id','desc')->paginate(10);
+        return view('front-end.category.index',['category'=>$category,'jobs'=>$jobs]);
     }
 }

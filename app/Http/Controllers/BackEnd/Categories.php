@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\BackEnd;
 
 use App\Models\Category;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\BackEnd\Categories\Store;
 use App\Http\Requests\BackEnd\Categories\Update;
 class Categories extends BackEndController
@@ -16,7 +15,15 @@ class Categories extends BackEndController
 
     public function store(Store $request)
     {
-    	Category::create($request->all());
+
+    	$this->model::create($request->all());
     	return redirect()->route(''.$this->lowerModelNamePlural.'.index');
+    }
+
+    public function update($id,Update $request)
+    {
+        $row = $this->model::findOrFail($id);
+        $row->update($request->all());
+        return redirect()->route(''.$this->lowerModelNamePlural.'.edit',['id'=>$id]);
     }
 }

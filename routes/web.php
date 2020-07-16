@@ -11,9 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','HomeController@index');
+Route::get('category/{id}','HomeController@category')->name('front.category');
 
 
 //Route::get('dashboard','BackEnd\Home@index');
@@ -24,6 +23,7 @@ Route::namespace('BackEnd')->prefix('dashboard')->group(function(){
 	Route::resource('users','Users')->except('show');
 	Route::resource('categories','Categories')->except('show');
 });
+
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/', 'HomeController@index')->name('home');
