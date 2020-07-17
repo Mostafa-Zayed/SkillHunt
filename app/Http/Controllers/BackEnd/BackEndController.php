@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\BackEnd;
-
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Model;
 class BackEndController extends Controller {
-	
+
 	protected $model;
 	protected $modelName;
     protected $modelNamePlural;
@@ -14,25 +14,10 @@ class BackEndController extends Controller {
 	public function __construct(Model $model)
 	{
 		$this->model = $model;
-		$this->modelName = $this->setModelName();
-        $this->modelNamePlural = $this->setModelNamePlural();
-        $this->lowerModelNamePlural = $this->setLowerModelNamePlural();
+		$this->modelName = class_basename($model);
+        $this->modelNamePlural = str_plural($this->modelName);
+        $this->lowerModelNamePlural = strtolower($this->modelNamePlural);
 	}
-
-	private function setModelName()
-	{
-		return class_basename($this->model);
-	}
-
-    private function setModelNamePlural()
-    {
-        return str_plural($this->modelName);
-    }
-
-    private function setLowerModelNamePlural()
-    {
-        return strtolower($this->modelNamePlural);
-    }
 
 	protected function filter($rows)
 	{
@@ -40,58 +25,43 @@ class BackEndController extends Controller {
 	}
 	/**
 	* determane The users Index Page
-	* 
+	*
 	* @return View
 	*/
     public function index()
     {
-        $pageTitle = 'Control '.$this->modelNamePlural;
-        $method    = __FUNCTION__;
     	$rows      = $this->model;
     	$rows      = $this->filter($rows);
-    	$rows      = $rows->paginate(2);
-    	
-    	return view('back-end.'.$this->lowerModelNamePlural.'.'.$method,[
-    		'pageTitle' =>$pageTitle,
-    		'model'=>$this->modelName,
-    		'models'=>$this->lowerModelNamePlural,
-            'method'  => ucfirst($method),
-            'rows'      => $rows
-    	]);
+    	$rows      = $rows->paginate(10);
+    	return view('back-end.'.$this->lowerModelNamePlural.'.'.__FUNCTION__,[
+    	    'rows' => $rows,
+            'models' => $this->lowerModelNamePlural,
+            'function' => __FUNCTION__
+        ]);
     }
-	
+
 	public function create()
     {
-        $method = __FUNCTION__;
-    	$pageTitle = ucwords($method.' '.$this->modelName);
-    	return view('back-end.'.$this->lowerModelNamePlural.'.'.$method,[
-    		'pageTitle'=>$pageTitle,
-    		'model'=>$this->modelName,
-    		'models'=>$this->lowerModelNamePlural,
-            'method'  => ucfirst($method)
+    	return view('back-end.'.$this->lowerModelNamePlural.'.'.__FUNCTION__,[
+    		'models' => $this->lowerModelNamePlural,
+            'function' => __FUNCTION__
     	]);
-    	
-    }
+    }// end Create
 
     public function edit($id)
     {
-        $method = __FUNCTION__;
-    	$pageTitle = ucwords($method.' '.$this->modelName);
         $row = $this->model::findOrFail($id);
-        return view('back-end.'.$this->lowerModelNamePlural.'.'.$method,[
+        return view('back-end.'.$this->lowerModelNamePlural.'.'.__FUNCTION__,[
         	'row'=>$row,
-        	'pageTitle'=>$pageTitle,
-            'method'=>ucfirst($method),
-        	'model'=>$this->modelName,
+            'function' => __FUNCTION__,
         	'models'=>$this->lowerModelNamePlural
         ]);
-
-    }
+    }// end Edit
 
     public function destroy($id)
     {
          $this->model::findOrFail($id)->delete();
          return redirect()->route(''.$this->lowerModelNamePlural.'.index');
-    }
-	
+    }// end Destroy
+
 }

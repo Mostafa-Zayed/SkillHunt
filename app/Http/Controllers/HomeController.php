@@ -30,7 +30,6 @@ class HomeController extends Controller
     public function category($id)
     {
         $category = Category::findOrFail($id);
-        //dd($category);
         $jobs = Job::where('category_id',$id)->orderBy('id','desc')->paginate(10);
         return view('front-end.category.index',['category'=>$category,'jobs'=>$jobs]);
     }

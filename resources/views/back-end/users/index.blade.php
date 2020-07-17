@@ -1,13 +1,15 @@
 @extends('back-end.layout.app')
-@php  
-    $fields  = array('id','email','control');
-    $center = "style=text-align:center;";
-    $increment = 0;
+@php
+    $fields  = array('id','photo','name','email','type','control');
 @endphp
-@section('title',$pageTitle)
+@section('title','Dashboard | '.$models)
 @section('content')
-<br>
-
+    <div class="row">
+        <div class="col-md-12 offset-md-10">
+            <a class="btn btn-primary" href="{{route('dashboard.users.create')}}">Create New User</a>
+        </div>
+    </div>
+    <br>
 <div class='row'>
 @if(\Session::has('success'))
     <div class='col-md-10'>
@@ -17,24 +19,23 @@
     </div>
 @endif
 </div>
-<div class='row'>
-    <div class='col-md-12 text-right'>
-    	<a href="{{route('users.create')}}" class='btn btn-primary'>Create {{$model}}</a>
-    </div>
-</div>
-<br>
-<div class='row'>
-    <div class='col-md-12'>
-        <div class="card">
-            <div class="content table-responsive table-full-width">
-                <table class="table table-hover table-striped">
-                    @component('back-end.shared.table.table-head',['fields'=>$fields,'center'=>$center])
-                    @endcomponent
-                    @include('back-end.'.$models.'.table-body')
-                </table>
-            </div>
+<div class="card mb-3">
+    @include('back-end.includes.thead')
+                <tbody>
+                    @foreach($rows as $row)
+                        <tr>
+                            <td>{{$row->id}}</td>
+                        <td>{{$row->photo}}</td>
+                        <td>{{$row->name}}</td>
+                        <td>{{$row->email}}</td>
+                        <td>{{$row->type}}</td>
+                        <td>control</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
-        {{$rows->links()}}
     </div>
+    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
 </div>
 @endsection

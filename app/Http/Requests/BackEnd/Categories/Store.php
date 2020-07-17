@@ -26,9 +26,7 @@ class Store extends FormRequest
         return [
             //
             'name'          => ['required','string','min:3','max:255'],
-            'icon'          => ['required','string','min:3','max:255'],
-            'meta_keywords' => ['max:255'],
-            'meta_describe' => ['max:255']
+
         ];
     }
 }

@@ -15,6 +15,7 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     protected $namespace = 'App\Http\Controllers';
+    protected $namespaceBackEnd = 'App\Http\Controllers\BackEnd';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -39,6 +40,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
+        $this->mapBackEndRoutes();
         //
     }
 
@@ -69,5 +71,14 @@ class RouteServiceProvider extends ServiceProvider
              ->middleware('api')
              ->namespace($this->namespace)
              ->group(base_path('routes/api.php'));
+    }
+
+    protected function mapBackEndRoutes()
+    {
+        Route::prefix('dashboard')
+            ->middleware('web')
+            ->namespace($this->namespaceBackEnd)
+            ->name('dashboard.')
+            ->group(base_path('routes/dashboard/web.php'));
     }
 }

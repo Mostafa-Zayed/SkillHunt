@@ -15,15 +15,14 @@ class Categories extends BackEndController
 
     public function store(Store $request)
     {
-
-    	$this->model::create($request->all());
+    	$this->model::create($request->except(['_token']));
     	return redirect()->route(''.$this->lowerModelNamePlural.'.index');
-    }
+    }// edn store
 
     public function update($id,Update $request)
     {
         $row = $this->model::findOrFail($id);
         $row->update($request->all());
         return redirect()->route(''.$this->lowerModelNamePlural.'.edit',['id'=>$id]);
-    }
+    }// end update
 }
