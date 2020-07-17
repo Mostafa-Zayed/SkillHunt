@@ -1,7 +1,7 @@
-@extends('layouts.app') 
-@section('title','Skillhunt') 
-@section('content')  
-    <div class="hero-wrap img" style="background-image: url(frontend/images/bg_1.jpg);">
+@extends('layouts.app')
+@section('title','Skillhunt')
+@section('content')
+    <div class="hero-wrap img" style="background-image: url({{asset('frontend/images/bg_1.jpg')}});">
       <div class="overlay"></div>
       <div class="container">
         <div class="row d-md-flex no-gutters slider-text align-items-center justify-content-center">
@@ -63,7 +63,7 @@
                             </div>
                           </div>
                           <div class="col-md-12 tab-wrap">
-                            
+
                             <div class="tab-content p-4" id="v-pills-tabContent">
 
                               <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-nextgen-tab">
@@ -131,11 +131,9 @@
                                                   <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                                                   <select name="" id="" class="form-control">
                                                     <option value="">Category</option>
-                                                    <option value="">Full Time</option>
-                                                    <option value="">Part Time</option>
-                                                    <option value="">Freelance</option>
-                                                    <option value="">Internship</option>
-                                                    <option value="">Temporary</option>
+                                                      @foreach($types as $type)
+                                                          <option value="{{$type}}">{{ucfirst($type)}}</option>
+                                                      @endforeach
                                                   </select>
                                                 </div>
                                                   </div>
@@ -175,15 +173,7 @@
                 <div class="col-md-12">
                     <div class="category-wrap">
                         <div class="row no-gutters">
-                          @foreach($categories as $category)
-                            <div class="col-md-2">
-                                <div class="top-category text-center no-border-left">
-                                    <h3><a href="{{route('front.category',['id'=>$category->id])}}">{{ucfirst($category->name)}}</a></h3>
-                                    <span class="icon flaticon-{{$category->icon}}"></span>
-                                    <p><span class="number">143</span> <span>Open position</span></p>
-                                </div>
-                            </div>
-                            @endforeach
+
                         </div>
                     </div>
                 </div>
@@ -246,7 +236,7 @@
                 <h3 class="heading mb-3">Search Millions of Jobs</h3>
                 <p>A small river named Duden flows by their place and supplies.</p>
               </div>
-            </div>      
+            </div>
           </div>
           <div class="col-md-3 d-flex align-self-stretch ftco-animate">
             <div class="media block-6 services d-block">
@@ -255,7 +245,7 @@
                 <h3 class="heading mb-3">Easy To Manage Jobs</h3>
                 <p>A small river named Duden flows by their place and supplies.</p>
               </div>
-            </div>    
+            </div>
           </div>
           <div class="col-md-3 d-flex align-self-stretch ftco-animate">
             <div class="media block-6 services d-block">
@@ -264,7 +254,7 @@
                 <h3 class="heading mb-3">Top Careers</h3>
                 <p>A small river named Duden flows by their place and supplies.</p>
               </div>
-            </div>      
+            </div>
           </div>
           <div class="col-md-3 d-flex align-self-stretch ftco-animate">
             <div class="media block-6 services d-block">
@@ -273,7 +263,7 @@
                 <h3 class="heading mb-3">Search Expert Candidates</h3>
                 <p>A small river named Duden flows by their place and supplies.</p>
               </div>
-            </div>      
+            </div>
           </div>
         </div>
       </div>
@@ -772,7 +762,7 @@
         </div>
       </div>
     </section>
-        
+
         <section class="ftco-section-parallax">
       <div class="parallax-img d-flex align-items-center">
         <div class="container">

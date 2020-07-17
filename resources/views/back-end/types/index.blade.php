@@ -1,13 +1,12 @@
 @extends('back-end.layout.app')
 @php
     $fields  = array('id','name','control');
-
 @endphp
-@section('title','Dashboard | '.ucfirst($models).'| '.$function)
+@section('title','Dashboard | '.ucfirst($models).'| '.ucfirst($function))
 @section('content')
     <div class="row">
         <div class="col-md-12 offset-md-9">
-            <a class="btn btn-primary" href="{{route('dashboard.'.$models.'.create')}}">Create New Category</a>
+            <a class="btn btn-primary" href="{{route('dashboard.'.$models.'.create')}}">Create New Page</a>
         </div>
     </div>
     <br>
@@ -23,10 +22,11 @@
 <div class="card mb-3">
     @include('back-end.includes.thead')
     <tbody>
-        @include('back-end.'.$models.'.table-body')
+    @include('back-end.'.$models.'.table-body')
     </tbody>
     </table>
 </div>
 </div>
 <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-</div>@endsection
+</div>
+@endsection

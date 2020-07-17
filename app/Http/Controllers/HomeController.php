@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Page;
+use App\Models\Type;
 use Illuminate\Http\Request;
 use App\Models\Job;
 use App\Models\Category;
@@ -24,7 +26,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('welcome');
+        $categories = Category::get();
+        $pages = Page::get();
+        $types = Type::get();
+        return view('welcome',['categories'=>$categories,'pages'=>$pages,'types'=>$types]);
     }
 
     public function category($id)

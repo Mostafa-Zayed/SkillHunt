@@ -3,6 +3,7 @@
         <tr>
             <td>{{$row->id}}</td>
             <td>{{$row->name}}</td>
-            <td>Control</td>
+            <td>{{'control'}}</td>
         </tr>
         @endforeach
+

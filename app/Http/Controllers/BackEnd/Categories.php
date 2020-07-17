@@ -16,7 +16,7 @@ class Categories extends BackEndController
     public function store(Store $request)
     {
     	$this->model::create($request->except(['_token']));
-    	return redirect()->route(''.$this->lowerModelNamePlural.'.index');
+    	return redirect()->route('dashboard.'.$this->lowerModelNamePlural.'.index');
     }// edn store
 
     public function update($id,Update $request)

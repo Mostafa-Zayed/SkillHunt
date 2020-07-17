@@ -21,7 +21,7 @@
 
                     </div>
                 </div>
-
+                <!--
                 <div class="form-group">
                     <div class="form-row">
                         <div class="col-md-12">
@@ -34,7 +34,6 @@
                     </div>
                 </div>
                 <br>
-                <!--
                 <div class="form-group">
                     <div class="form-row">
                         <div class="col-md-12">
